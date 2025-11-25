@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>For My Love 💖</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <style>
+    body {
+      background: #ffeaf1;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      text-align: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+    .centerbox {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+    .card {
+      background: #fff;
+      border-radius: 24px;
+      box-shadow: 0 0 24px #fbb6ce;
+      display: none;
+      padding: 40px 32px 32px 32px;
+      margin-bottom: 24px;
+      max-width: 350px;
+      min-width: 280px;
+      transition: box-shadow 0.2s;
+    }
+    .card.show {
+      display: block;
+      animation: fadeIn 0.5s ease;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95);}
+      to { opacity: 1; transform: scale(1);}
+    }
+    h2 {
+      margin: 0 0 20px 0;
+      font-weight: 700;
+      font-size: 1.5em;
+      color: #111;
+    }
+    .key {
+      font-size: 1.2em;
+      color: #fbbd08;
+      margin-left: 4px;
+    }
+    input[type="password"] {
+      padding: 12px;
+      border: none;
+      border-radius: 12px;
+      background: #ffd1eb;
+      font-size: 1.05em;
+      margin-bottom: 12px;
+      margin-top: 10px;
+      width: 80%;
+      text-align: center;
+      outline: none;
+    }
+    .btn {
+      background: #ffb0d2;
+      border: none;
+      color: #fff;
+      font-weight: 600;
+      border-radius: 10px;
+      padding: 9px 22px;
+      margin-top: 8px;
+      font-size: 1em;
+      cursor: pointer;
+      box-shadow: 0 2px 8px #fbb6ce50;
+      transition: background 0.2s;
+    }
+    .btn:active { background: #eb2f96; }
+    .qn-btns { margin-top: 14px; }
+    .qn-btn {
+      background: #ffb0d2;
+      border: none;
+      color: #fff;
+      font-weight: 600;
+      border-radius: 9px;
+      padding: 7px 27px;
+      margin: 0 10px;
+      font-size: 1em;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .qn-btn:active { background: #eb2f96; }
+    .heart {
+      font-size: 3.2em;
+      cursor: pointer;
+      animation: pulse 1.2s infinite;
+    }
+    @keyframes pulse {
+      0%,100% { transform: scale(1); }
+      50% { transform: scale(1.19);}
+    }
+    .message {
+      font-size: 1.1em;
+      margin-top: 12px;
+      color: #eb2f96;
+    }
+    .error-msg {
+      color: #eb2f96;
+      margin-top: 8px;
+      font-size: 0.96em;
+    }
+    /* Overlay for popups */
+    .overlay {
+      position: fixed;
+      left:0;right:0;top:0;bottom:0;
+      background: rgba(248,182,206,0.18);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+    }
+    .popup {
+      background: #fff;
+      border-radius: 18px;
+      padding: 32px 28px;
+      box-shadow: 0 0 10px #fbb6ce;
+      text-align: center;
+      min-width: 260px;
+      max-width: 320px;
+    }
+    .popup img {
+      width: 120px;
+      margin: 12px 0;
+      border-radius: 12px;
+    }
+    .return-btn, .next-btn {
+      background: #ffb0d2;
+      border: none;
+      color: #fff;
+      font-weight: 600;
+      border-radius: 8px;
+      padding: 6px 17px;
+      font-size: 1em;
+      cursor: pointer;
+      margin-top: 7px;
+      margin-right: 2px;
+    }
+    .love-emoji {
+      font-size: 1.2em;
+      vertical-align: middle;
+      margin-left: 9px;
+      animation: fadeIn 0.8s;
+    }
+    p {
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+<div class="centerbox">
+  <!-- PAGE 1: Password -->
+  <div class="card show" id="card1">
+    <h2>Enter the secret password <span class="key">🔑</span></h2>
+    <input type="password" id="pwinput" placeholder="********">
+    <br>
+    <button class="btn" onclick="checkPw()">Enter</button>
+    <div class="error-msg" id="pwerr" style="display:none;">Wrong password! Try again.</div>
+  </div>
+
+  <!-- PAGE 2: Question Yes/No -->
+  <div class="card" id="card2">
+    <h2>Do you love me <span>:(</span> ?</h2>
+    <div class="qn-btns">
+      <button class="qn-btn" onclick="loveYes()">Yes</button>
+      <button class="qn-btn" onclick="loveNo()">No</button>
+    </div>
+  </div>
+
+  <!-- PAGE 3: I need to tell you something... -->
+  <div class="card" id="card3">
+    <h2>I need to tell you something baby...</h2>
+    <div class="heart" onclick="showMsg()">💗</div>
+  </div>
+
+  <!-- PAGE 4: Secret Message -->
+  <div class="card" id="card4">
+    <h2>Here’s my secret message for you:</h2>
+    <p style="font-size:1.15em; color: #eb2f96; margin-top:18px;">I'm really sorry baby for everything po:C I didn't mean to hurt you po.. but then again na hurt ko ikaw:C I really wanna fix things po but idk if you want to:C na hadlok ako:C but baby I don't love you:C and I realize na sala ko po adto:C wary po kunta ak nag dinumot:C sala kopo adto tanan:C but baby bisan po kita okay love komn po ikaw:C I love you baby I really do:C and I'm sorry baby:C I promise to do better po:C  I LOVE YOU SO MUCH BABY:C
+      <span class="love-emoji">💖</span></p>
+  </div>
+</div>
+
+<!-- SAD OVERLAY POPUP -->
+<div class="overlay" id="sadpop">
+  <div class="popup">
+    <h2>You don't love me na :(</h2>
+    <img src="https://media.giphy.com/media/h4OGaXbYgkUFa/giphy.gif" alt="Sad gif">
+    <div>
+      <button class="return-btn" onclick="returnQn()">Return</button>
+    </div>
+  </div>
+</div>
+
+<!-- HAPPY OVERLAY POPUP -->
+<div class="overlay" id="happypop">
+  <div class="popup">
+    <h2>YEYYYYY I LOVE YOU BABYYY:D</h2>
+    <div>
+      <button class="next-btn" onclick="nextAfterYes()">Next</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// Set your password here
+const password = "Jemik17";
+
+function showCard(n) {
+  for (let i=1;i<=4;i++) {
+    document.getElementById('card'+i).classList.remove('show');
+  }
+  document.getElementById('card'+n).classList.add('show');
+}
+function checkPw() {
+  let pw = document.getElementById('pwinput').value;
+  document.getElementById('pwerr').style.display = 'none';
+  if (pw === password) {
+    showCard(2);
+  } else {
+    document.getElementById('pwerr').style.display = 'block';
+  }
+}
+function loveYes() {
+  document.getElementById('happypop').style.display = 'flex';
+}
+function nextAfterYes() {
+  document.getElementById('happypop').style.display = 'none';
+  showCard(3);
+}
+function loveNo() {
+  document.getElementById('sadpop').style.display = 'flex';
+}
+function returnQn() {
+  document.getElementById('sadpop').style.display = 'none';
+}
+function showMsg() {
+  showCard(4);
+}
+</script>
+</body>
+</html>
+     
